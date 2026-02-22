@@ -28,13 +28,13 @@ function createLimiterSpy(): AuthRateLimiter & {
 }
 
 describe("gateway auth", () => {
-  it("resolves token/password from OPENCLAW gateway env vars", () => {
+  it("resolves token/password from MAZELCLAW gateway env vars", () => {
     expect(
       resolveGatewayAuth({
         authConfig: {},
         env: {
-          OPENCLAW_GATEWAY_TOKEN: "env-token",
-          OPENCLAW_GATEWAY_PASSWORD: "env-password",
+          MAZELCLAW_GATEWAY_TOKEN: "env-token",
+          MAZELCLAW_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
     ).toMatchObject({

@@ -1,12 +1,12 @@
 import path from "node:path";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { MazelClawConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredMazelClawTmpDir } from "../infra/tmp-mazelclaw-dir.js";
 
 function buildMediaLocalRoots(stateDir: string): string[] {
   const resolvedStateDir = path.resolve(stateDir);
-  const preferredTmpDir = resolvePreferredOpenClawTmpDir();
+  const preferredTmpDir = resolvePreferredMazelClawTmpDir();
   return [
     preferredTmpDir,
     path.join(resolvedStateDir, "media"),
@@ -21,7 +21,7 @@ export function getDefaultMediaLocalRoots(): readonly string[] {
 }
 
 export function getAgentScopedMediaLocalRoots(
-  cfg: OpenClawConfig,
+  cfg: MazelClawConfig,
   agentId?: string,
 ): readonly string[] {
   const roots = buildMediaLocalRoots(resolveStateDir());

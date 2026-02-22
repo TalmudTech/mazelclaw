@@ -97,15 +97,15 @@ describe("daemon-cli coverage", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_GATEWAY_PORT",
-      "OPENCLAW_PROFILE",
+      "MAZELCLAW_STATE_DIR",
+      "MAZELCLAW_CONFIG_PATH",
+      "MAZELCLAW_GATEWAY_PORT",
+      "MAZELCLAW_PROFILE",
     ]);
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-cli-state";
-    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-cli-state/openclaw.json";
-    delete process.env.OPENCLAW_GATEWAY_PORT;
-    delete process.env.OPENCLAW_PROFILE;
+    process.env.MAZELCLAW_STATE_DIR = "/tmp/mazelclaw-cli-state";
+    process.env.MAZELCLAW_CONFIG_PATH = "/tmp/mazelclaw-cli-state/mazelclaw.json";
+    delete process.env.MAZELCLAW_GATEWAY_PORT;
+    delete process.env.MAZELCLAW_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
   });
 
@@ -133,10 +133,10 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19001",
+        MAZELCLAW_PROFILE: "dev",
+        MAZELCLAW_STATE_DIR: "/tmp/mazelclaw-daemon-state",
+        MAZELCLAW_CONFIG_PATH: "/tmp/mazelclaw-daemon-state/mazelclaw.json",
+        MAZELCLAW_GATEWAY_PORT: "19001",
       },
       sourcePath: "/tmp/bot.molt.gateway.plist",
     });

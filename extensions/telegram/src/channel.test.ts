@@ -1,16 +1,16 @@
 import type {
   ChannelAccountSnapshot,
   ChannelGatewayContext,
-  OpenClawConfig,
+  MazelClawConfig,
   PluginRuntime,
   ResolvedTelegramAccount,
   RuntimeEnv,
-} from "openclaw/plugin-sdk";
+} from "mazelclaw/plugin-sdk";
 import { describe, expect, it, vi } from "vitest";
 import { telegramPlugin } from "./channel.js";
 import { setTelegramRuntime } from "./runtime.js";
 
-function createCfg(): OpenClawConfig {
+function createCfg(): MazelClawConfig {
   return {
     channels: {
       telegram: {
@@ -22,7 +22,7 @@ function createCfg(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as MazelClawConfig;
 }
 
 function createRuntimeEnv(): RuntimeEnv {
@@ -36,7 +36,7 @@ function createRuntimeEnv(): RuntimeEnv {
 }
 
 function createStartAccountCtx(params: {
-  cfg: OpenClawConfig;
+  cfg: MazelClawConfig;
   accountId: string;
   runtime: RuntimeEnv;
 }): ChannelGatewayContext<ResolvedTelegramAccount> {

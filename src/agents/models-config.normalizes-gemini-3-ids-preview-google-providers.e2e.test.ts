@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { MazelClawConfig } from "../config/config.js";
 import { installModelsConfigTestHooks, withModelsTempHome } from "./models-config.e2e-harness.js";
 
 describe("models-config", () => {
@@ -9,10 +9,10 @@ describe("models-config", () => {
 
   it("normalizes gemini 3 ids to preview for google providers", async () => {
     await withModelsTempHome(async () => {
-      const { ensureOpenClawModelsJson } = await import("./models-config.js");
-      const { resolveOpenClawAgentDir } = await import("./agent-paths.js");
+      const { ensureMazelClawModelsJson } = await import("./models-config.js");
+      const { resolveMazelClawAgentDir } = await import("./agent-paths.js");
 
-      const cfg: OpenClawConfig = {
+      const cfg: MazelClawConfig = {
         models: {
           providers: {
             google: {
@@ -46,9 +46,9 @@ describe("models-config", () => {
         },
       };
 
-      await ensureOpenClawModelsJson(cfg);
+      await ensureMazelClawModelsJson(cfg);
 
-      const modelPath = path.join(resolveOpenClawAgentDir(), "models.json");
+      const modelPath = path.join(resolveMazelClawAgentDir(), "models.json");
       const raw = await fs.readFile(modelPath, "utf8");
       const parsed = JSON.parse(raw) as {
         providers: Record<string, { models: Array<{ id: string }> }>;

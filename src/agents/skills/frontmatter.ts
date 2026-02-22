@@ -3,15 +3,15 @@ import { parseFrontmatterBlock } from "../../markdown/frontmatter.js";
 import {
   getFrontmatterString,
   normalizeStringList,
-  parseOpenClawManifestInstallBase,
+  parseMazelClawManifestInstallBase,
   parseFrontmatterBool,
-  resolveOpenClawManifestBlock,
-  resolveOpenClawManifestInstall,
-  resolveOpenClawManifestOs,
-  resolveOpenClawManifestRequires,
+  resolveMazelClawManifestBlock,
+  resolveMazelClawManifestInstall,
+  resolveMazelClawManifestOs,
+  resolveMazelClawManifestRequires,
 } from "../../shared/frontmatter.js";
 import type {
-  OpenClawSkillMetadata,
+  MazelClawSkillMetadata,
   ParsedSkillFrontmatter,
   SkillEntry,
   SkillInstallSpec,
@@ -23,7 +23,7 @@ export function parseFrontmatter(content: string): ParsedSkillFrontmatter {
 }
 
 function parseInstallSpec(input: unknown): SkillInstallSpec | undefined {
-  const parsed = parseOpenClawManifestInstallBase(input, ["brew", "node", "go", "uv", "download"]);
+  const parsed = parseMazelClawManifestInstallBase(input, ["brew", "node", "go", "uv", "download"]);
   if (!parsed) {
     return undefined;
   }
@@ -78,16 +78,16 @@ function parseInstallSpec(input: unknown): SkillInstallSpec | undefined {
   return spec;
 }
 
-export function resolveOpenClawMetadata(
+export function resolveMazelClawMetadata(
   frontmatter: ParsedSkillFrontmatter,
-): OpenClawSkillMetadata | undefined {
-  const metadataObj = resolveOpenClawManifestBlock({ frontmatter });
+): MazelClawSkillMetadata | undefined {
+  const metadataObj = resolveMazelClawManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;
   }
-  const requires = resolveOpenClawManifestRequires(metadataObj);
-  const install = resolveOpenClawManifestInstall(metadataObj, parseInstallSpec);
-  const osRaw = resolveOpenClawManifestOs(metadataObj);
+  const requires = resolveMazelClawManifestRequires(metadataObj);
+  const install = resolveMazelClawManifestInstall(metadataObj, parseInstallSpec);
+  const osRaw = resolveMazelClawManifestOs(metadataObj);
   return {
     always: typeof metadataObj.always === "boolean" ? metadataObj.always : undefined,
     emoji: typeof metadataObj.emoji === "string" ? metadataObj.emoji : undefined,

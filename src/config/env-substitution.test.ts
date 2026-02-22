@@ -246,12 +246,12 @@ describe("resolveConfigEnvVars", () => {
       const config = {
         gateway: {
           auth: {
-            token: "${OPENCLAW_GATEWAY_TOKEN}",
+            token: "${MAZELCLAW_GATEWAY_TOKEN}",
           },
         },
       };
       const result = resolveConfigEnvVars(config, {
-        OPENCLAW_GATEWAY_TOKEN: "secret-token",
+        MAZELCLAW_GATEWAY_TOKEN: "secret-token",
       });
       expect(result).toEqual({
         gateway: {

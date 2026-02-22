@@ -1,7 +1,7 @@
 import AVFAudio
 import Foundation
 import Observation
-import OpenClawKit
+import MazelClawKit
 import Speech
 import SwabbleKit
 

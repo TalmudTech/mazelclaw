@@ -39,11 +39,11 @@ x-i18n:
 ## CLI 工作流程（支持无头模式）
 
 ```bash
-openclaw nodes pending
-openclaw nodes approve <requestId>
-openclaw nodes reject <requestId>
-openclaw nodes status
-openclaw nodes rename --node <id|name|ip> --name "Living Room iPad"
+mazelclaw nodes pending
+mazelclaw nodes approve <requestId>
+mazelclaw nodes reject <requestId>
+mazelclaw nodes status
+mazelclaw nodes rename --node <id|name|ip> --name "Living Room iPad"
 ```
 
 `nodes status` 显示已配对/已连接的节点及其功能。
@@ -80,12 +80,12 @@ openclaw nodes rename --node <id|name|ip> --name "Living Room iPad"
 
 ## 存储（本地，私有）
 
-配对状态存储在 Gateway 网关状态目录下（默认 `~/.openclaw`）：
+配对状态存储在 Gateway 网关状态目录下（默认 `~/.mazelclaw`）：
 
-- `~/.openclaw/nodes/paired.json`
-- `~/.openclaw/nodes/pending.json`
+- `~/.mazelclaw/nodes/paired.json`
+- `~/.mazelclaw/nodes/pending.json`
 
-如果你覆盖了 `OPENCLAW_STATE_DIR`，`nodes/` 文件夹会随之移动。
+如果你覆盖了 `MAZELCLAW_STATE_DIR`，`nodes/` 文件夹会随之移动。
 
 安全注意事项：
 

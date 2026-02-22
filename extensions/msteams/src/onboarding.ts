@@ -1,18 +1,18 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  OpenClawConfig,
+  MazelClawConfig,
   DmPolicy,
   WizardPrompter,
   MSTeamsTeamConfig,
-} from "openclaw/plugin-sdk";
+} from "mazelclaw/plugin-sdk";
 import {
   addWildcardAllowFrom,
   DEFAULT_ACCOUNT_ID,
   formatDocsLink,
   mergeAllowFromEntries,
   promptChannelAccessConfig,
-} from "openclaw/plugin-sdk";
+} from "mazelclaw/plugin-sdk";
 import {
   parseMSTeamsTeamEntry,
   resolveMSTeamsChannelAllowlist,
@@ -22,7 +22,7 @@ import { resolveMSTeamsCredentials } from "./token.js";
 
 const channel = "msteams" as const;
 
-function setMSTeamsDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
+function setMSTeamsDmPolicy(cfg: MazelClawConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open"
       ? addWildcardAllowFrom(cfg.channels?.msteams?.allowFrom)?.map((entry) => String(entry))
@@ -40,7 +40,7 @@ function setMSTeamsDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
   };
 }
 
-function setMSTeamsAllowFrom(cfg: OpenClawConfig, allowFrom: string[]): OpenClawConfig {
+function setMSTeamsAllowFrom(cfg: MazelClawConfig, allowFrom: string[]): MazelClawConfig {
   return {
     ...cfg,
     channels: {
@@ -91,9 +91,9 @@ async function promptMSTeamsCredentials(prompter: WizardPrompter): Promise<{
 }
 
 async function promptMSTeamsAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: MazelClawConfig;
   prompter: WizardPrompter;
-}): Promise<OpenClawConfig> {
+}): Promise<MazelClawConfig> {
   const existing = params.cfg.channels?.msteams?.allowFrom ?? [];
   await params.prompter.note(
     [
@@ -167,9 +167,9 @@ async function noteMSTeamsCredentialHelp(prompter: WizardPrompter): Promise<void
 }
 
 function setMSTeamsGroupPolicy(
-  cfg: OpenClawConfig,
+  cfg: MazelClawConfig,
   groupPolicy: "open" | "allowlist" | "disabled",
-): OpenClawConfig {
+): MazelClawConfig {
   return {
     ...cfg,
     channels: {
@@ -184,9 +184,9 @@ function setMSTeamsGroupPolicy(
 }
 
 function setMSTeamsTeamsAllowlist(
-  cfg: OpenClawConfig,
+  cfg: MazelClawConfig,
   entries: Array<{ teamKey: string; channelKey?: string }>,
-): OpenClawConfig {
+): MazelClawConfig {
   const baseTeams = cfg.channels?.msteams?.teams ?? {};
   const teams: Record<string, { channels?: Record<string, unknown> }> = { ...baseTeams };
   for (const entry of entries) {

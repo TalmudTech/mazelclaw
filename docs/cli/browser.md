@@ -1,15 +1,15 @@
 ---
-summary: "CLI reference for `openclaw browser` (profiles, tabs, actions, extension relay)"
+summary: "CLI reference for `mazelclaw browser` (profiles, tabs, actions, extension relay)"
 read_when:
-  - You use `openclaw browser` and want examples for common tasks
+  - You use `mazelclaw browser` and want examples for common tasks
   - You want to control a browser running on another machine via a node host
   - You want to use the Chrome extension relay (attach/detach via toolbar button)
 title: "browser"
 ---
 
-# `openclaw browser`
+# `mazelclaw browser`
 
-Manage OpenClaw’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
+Manage MazelClaw’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
 
 Related:
 
@@ -27,38 +27,38 @@ Related:
 ## Quick start (local)
 
 ```bash
-openclaw browser --browser-profile chrome tabs
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw open https://example.com
-openclaw browser --browser-profile openclaw snapshot
+mazelclaw browser --browser-profile chrome tabs
+mazelclaw browser --browser-profile mazelclaw start
+mazelclaw browser --browser-profile mazelclaw open https://example.com
+mazelclaw browser --browser-profile mazelclaw snapshot
 ```
 
 ## Profiles
 
 Profiles are named browser routing configs. In practice:
 
-- `openclaw`: launches/attaches to a dedicated OpenClaw-managed Chrome instance (isolated user data dir).
+- `mazelclaw`: launches/attaches to a dedicated MazelClaw-managed Chrome instance (isolated user data dir).
 - `chrome`: controls your existing Chrome tab(s) via the Chrome extension relay.
 
 ```bash
-openclaw browser profiles
-openclaw browser create-profile --name work --color "#FF5A36"
-openclaw browser delete-profile --name work
+mazelclaw browser profiles
+mazelclaw browser create-profile --name work --color "#FF5A36"
+mazelclaw browser delete-profile --name work
 ```
 
 Use a specific profile:
 
 ```bash
-openclaw browser --browser-profile work tabs
+mazelclaw browser --browser-profile work tabs
 ```
 
 ## Tabs
 
 ```bash
-openclaw browser tabs
-openclaw browser open https://docs.openclaw.ai
-openclaw browser focus <targetId>
-openclaw browser close <targetId>
+mazelclaw browser tabs
+mazelclaw browser open https://docs.mazelclaw.ai
+mazelclaw browser focus <targetId>
+mazelclaw browser close <targetId>
 ```
 
 ## Snapshot / screenshot / actions
@@ -66,21 +66,21 @@ openclaw browser close <targetId>
 Snapshot:
 
 ```bash
-openclaw browser snapshot
+mazelclaw browser snapshot
 ```
 
 Screenshot:
 
 ```bash
-openclaw browser screenshot
+mazelclaw browser screenshot
 ```
 
 Navigate/click/type (ref-based UI automation):
 
 ```bash
-openclaw browser navigate https://example.com
-openclaw browser click <ref>
-openclaw browser type <ref> "hello"
+mazelclaw browser navigate https://example.com
+mazelclaw browser click <ref>
+mazelclaw browser type <ref> "hello"
 ```
 
 ## Chrome extension relay (attach via toolbar button)
@@ -90,8 +90,8 @@ This mode lets the agent control an existing Chrome tab that you attach manually
 Install the unpacked extension to a stable path:
 
 ```bash
-openclaw browser extension install
-openclaw browser extension path
+mazelclaw browser extension install
+mazelclaw browser extension path
 ```
 
 Then Chrome → `chrome://extensions` → enable “Developer mode” → “Load unpacked” → select the printed folder.

@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { MazelClawConfig } from "../config/config.js";
 
 export function applyOnboardingLocalWorkspaceConfig(
-  baseConfig: OpenClawConfig,
+  baseConfig: MazelClawConfig,
   workspaceDir: string,
-): OpenClawConfig {
+): MazelClawConfig {
   return {
     ...baseConfig,
     agents: {

@@ -1,4 +1,4 @@
-import type { LineChannelData, OpenClawPluginApi, ReplyPayload } from "openclaw/plugin-sdk";
+import type { LineChannelData, MazelClawPluginApi, ReplyPayload } from "mazelclaw/plugin-sdk";
 import {
   createActionCard,
   createImageCard,
@@ -7,7 +7,7 @@ import {
   createReceiptCard,
   type CardAction,
   type ListItem,
-} from "openclaw/plugin-sdk";
+} from "mazelclaw/plugin-sdk";
 
 const CARD_USAGE = `Usage: /card <type> "title" "body" [options]
 
@@ -154,7 +154,7 @@ function parseCardArgs(argsStr: string): {
   return result;
 }
 
-export function registerLineCardCommand(api: OpenClawPluginApi): void {
+export function registerLineCardCommand(api: MazelClawPluginApi): void {
   api.registerCommand({
     name: "card",
     description: "Send a rich card message (LINE).",

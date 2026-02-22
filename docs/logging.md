@@ -9,7 +9,7 @@ title: "Logging"
 
 # Logging
 
-OpenClaw logs in two places:
+MazelClaw logs in two places:
 
 - **File logs** (JSON lines) written by the Gateway.
 - **Console output** shown in terminals and the Control UI.
@@ -21,16 +21,16 @@ levels and formats.
 
 By default, the Gateway writes a rolling log file under:
 
-`/tmp/openclaw/openclaw-YYYY-MM-DD.log`
+`/tmp/mazelclaw/mazelclaw-YYYY-MM-DD.log`
 
 The date uses the gateway host's local timezone.
 
-You can override this in `~/.openclaw/openclaw.json`:
+You can override this in `~/.mazelclaw/mazelclaw.json`:
 
 ```json
 {
   "logging": {
-    "file": "/path/to/openclaw.log"
+    "file": "/path/to/mazelclaw.log"
   }
 }
 ```
@@ -42,7 +42,7 @@ You can override this in `~/.openclaw/openclaw.json`:
 Use the CLI to tail the gateway log file via RPC:
 
 ```bash
-openclaw logs --follow
+mazelclaw logs --follow
 ```
 
 Output modes:
@@ -63,7 +63,7 @@ In JSON mode, the CLI emits `type`-tagged objects:
 If the Gateway is unreachable, the CLI prints a short hint to run:
 
 ```bash
-openclaw doctor
+mazelclaw doctor
 ```
 
 ### Control UI (web)
@@ -76,7 +76,7 @@ See [/web/control-ui](/web/control-ui) for how to open it.
 To filter channel activity (WhatsApp/Telegram/etc), use:
 
 ```bash
-openclaw channels logs --channel whatsapp
+mazelclaw channels logs --channel whatsapp
 ```
 
 ## Log formats
@@ -98,13 +98,13 @@ Console formatting is controlled by `logging.consoleStyle`.
 
 ## Configuring logging
 
-All logging configuration lives under `logging` in `~/.openclaw/openclaw.json`.
+All logging configuration lives under `logging` in `~/.mazelclaw/mazelclaw.json`.
 
 ```json
 {
   "logging": {
     "level": "info",
-    "file": "/tmp/openclaw/openclaw-YYYY-MM-DD.log",
+    "file": "/tmp/mazelclaw/mazelclaw-YYYY-MM-DD.log",
     "consoleLevel": "info",
     "consoleStyle": "pretty",
     "redactSensitive": "tools",
@@ -150,7 +150,7 @@ diagnostics + the exporter plugin are enabled.
 
 - **OpenTelemetry (OTel)**: the data model + SDKs for traces, metrics, and logs.
 - **OTLP**: the wire protocol used to export OTel data to a collector/backend.
-- OpenClaw exports via **OTLP/HTTP (protobuf)** today.
+- MazelClaw exports via **OTLP/HTTP (protobuf)** today.
 
 ### Signals exported
 
@@ -210,7 +210,7 @@ Flags are case-insensitive and support wildcards (e.g. `telegram.*` or `*`).
 Env override (one-off):
 
 ```
-OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
+MAZELCLAW_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 Notes:
@@ -240,7 +240,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
       "enabled": true,
       "endpoint": "http://otel-collector:4318",
       "protocol": "http/protobuf",
-      "serviceName": "openclaw-gateway",
+      "serviceName": "mazelclaw-gateway",
       "traces": true,
       "metrics": true,
       "logs": true,
@@ -253,7 +253,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
 
 Notes:
 
-- You can also enable the plugin with `openclaw plugins enable diagnostics-otel`.
+- You can also enable the plugin with `mazelclaw plugins enable diagnostics-otel`.
 - `protocol` currently supports `http/protobuf` only. `grpc` is ignored.
 - Metrics include token usage, cost, context size, run duration, and message-flow
   counters/histograms (webhooks, queueing, session state, queue depth/wait).
@@ -267,60 +267,60 @@ Notes:
 
 Model usage:
 
-- `openclaw.tokens` (counter, attrs: `openclaw.token`, `openclaw.channel`,
-  `openclaw.provider`, `openclaw.model`)
-- `openclaw.cost.usd` (counter, attrs: `openclaw.channel`, `openclaw.provider`,
-  `openclaw.model`)
-- `openclaw.run.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.provider`, `openclaw.model`)
-- `openclaw.context.tokens` (histogram, attrs: `openclaw.context`,
-  `openclaw.channel`, `openclaw.provider`, `openclaw.model`)
+- `mazelclaw.tokens` (counter, attrs: `mazelclaw.token`, `mazelclaw.channel`,
+  `mazelclaw.provider`, `mazelclaw.model`)
+- `mazelclaw.cost.usd` (counter, attrs: `mazelclaw.channel`, `mazelclaw.provider`,
+  `mazelclaw.model`)
+- `mazelclaw.run.duration_ms` (histogram, attrs: `mazelclaw.channel`,
+  `mazelclaw.provider`, `mazelclaw.model`)
+- `mazelclaw.context.tokens` (histogram, attrs: `mazelclaw.context`,
+  `mazelclaw.channel`, `mazelclaw.provider`, `mazelclaw.model`)
 
 Message flow:
 
-- `openclaw.webhook.received` (counter, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.webhook.error` (counter, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.webhook.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.message.queued` (counter, attrs: `openclaw.channel`,
-  `openclaw.source`)
-- `openclaw.message.processed` (counter, attrs: `openclaw.channel`,
-  `openclaw.outcome`)
-- `openclaw.message.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.outcome`)
+- `mazelclaw.webhook.received` (counter, attrs: `mazelclaw.channel`,
+  `mazelclaw.webhook`)
+- `mazelclaw.webhook.error` (counter, attrs: `mazelclaw.channel`,
+  `mazelclaw.webhook`)
+- `mazelclaw.webhook.duration_ms` (histogram, attrs: `mazelclaw.channel`,
+  `mazelclaw.webhook`)
+- `mazelclaw.message.queued` (counter, attrs: `mazelclaw.channel`,
+  `mazelclaw.source`)
+- `mazelclaw.message.processed` (counter, attrs: `mazelclaw.channel`,
+  `mazelclaw.outcome`)
+- `mazelclaw.message.duration_ms` (histogram, attrs: `mazelclaw.channel`,
+  `mazelclaw.outcome`)
 
 Queues + sessions:
 
-- `openclaw.queue.lane.enqueue` (counter, attrs: `openclaw.lane`)
-- `openclaw.queue.lane.dequeue` (counter, attrs: `openclaw.lane`)
-- `openclaw.queue.depth` (histogram, attrs: `openclaw.lane` or
-  `openclaw.channel=heartbeat`)
-- `openclaw.queue.wait_ms` (histogram, attrs: `openclaw.lane`)
-- `openclaw.session.state` (counter, attrs: `openclaw.state`, `openclaw.reason`)
-- `openclaw.session.stuck` (counter, attrs: `openclaw.state`)
-- `openclaw.session.stuck_age_ms` (histogram, attrs: `openclaw.state`)
-- `openclaw.run.attempt` (counter, attrs: `openclaw.attempt`)
+- `mazelclaw.queue.lane.enqueue` (counter, attrs: `mazelclaw.lane`)
+- `mazelclaw.queue.lane.dequeue` (counter, attrs: `mazelclaw.lane`)
+- `mazelclaw.queue.depth` (histogram, attrs: `mazelclaw.lane` or
+  `mazelclaw.channel=heartbeat`)
+- `mazelclaw.queue.wait_ms` (histogram, attrs: `mazelclaw.lane`)
+- `mazelclaw.session.state` (counter, attrs: `mazelclaw.state`, `mazelclaw.reason`)
+- `mazelclaw.session.stuck` (counter, attrs: `mazelclaw.state`)
+- `mazelclaw.session.stuck_age_ms` (histogram, attrs: `mazelclaw.state`)
+- `mazelclaw.run.attempt` (counter, attrs: `mazelclaw.attempt`)
 
 ### Exported spans (names + key attributes)
 
-- `openclaw.model.usage`
-  - `openclaw.channel`, `openclaw.provider`, `openclaw.model`
-  - `openclaw.sessionKey`, `openclaw.sessionId`
-  - `openclaw.tokens.*` (input/output/cache_read/cache_write/total)
-- `openclaw.webhook.processed`
-  - `openclaw.channel`, `openclaw.webhook`, `openclaw.chatId`
-- `openclaw.webhook.error`
-  - `openclaw.channel`, `openclaw.webhook`, `openclaw.chatId`,
-    `openclaw.error`
-- `openclaw.message.processed`
-  - `openclaw.channel`, `openclaw.outcome`, `openclaw.chatId`,
-    `openclaw.messageId`, `openclaw.sessionKey`, `openclaw.sessionId`,
-    `openclaw.reason`
-- `openclaw.session.stuck`
-  - `openclaw.state`, `openclaw.ageMs`, `openclaw.queueDepth`,
-    `openclaw.sessionKey`, `openclaw.sessionId`
+- `mazelclaw.model.usage`
+  - `mazelclaw.channel`, `mazelclaw.provider`, `mazelclaw.model`
+  - `mazelclaw.sessionKey`, `mazelclaw.sessionId`
+  - `mazelclaw.tokens.*` (input/output/cache_read/cache_write/total)
+- `mazelclaw.webhook.processed`
+  - `mazelclaw.channel`, `mazelclaw.webhook`, `mazelclaw.chatId`
+- `mazelclaw.webhook.error`
+  - `mazelclaw.channel`, `mazelclaw.webhook`, `mazelclaw.chatId`,
+    `mazelclaw.error`
+- `mazelclaw.message.processed`
+  - `mazelclaw.channel`, `mazelclaw.outcome`, `mazelclaw.chatId`,
+    `mazelclaw.messageId`, `mazelclaw.sessionKey`, `mazelclaw.sessionId`,
+    `mazelclaw.reason`
+- `mazelclaw.session.stuck`
+  - `mazelclaw.state`, `mazelclaw.ageMs`, `mazelclaw.queueDepth`,
+    `mazelclaw.sessionKey`, `mazelclaw.sessionId`
 
 ### Sampling + flushing
 
@@ -344,7 +344,7 @@ Queues + sessions:
 
 ## Troubleshooting tips
 
-- **Gateway not reachable?** Run `openclaw doctor` first.
+- **Gateway not reachable?** Run `mazelclaw doctor` first.
 - **Logs empty?** Check that the Gateway is running and writing to the file path
   in `logging.file`.
 - **Need more detail?** Set `logging.level` to `debug` or `trace` and retry.

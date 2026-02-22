@@ -1,13 +1,13 @@
 ---
-summary: "Direct `openclaw agent` CLI runs (with optional delivery)"
+summary: "Direct `mazelclaw agent` CLI runs (with optional delivery)"
 read_when:
   - Adding or modifying the agent CLI entrypoint
 title: "Agent Send"
 ---
 
-# `openclaw agent` (direct agent runs)
+# `mazelclaw agent` (direct agent runs)
 
-`openclaw agent` runs a single agent turn without needing an inbound chat message.
+`mazelclaw agent` runs a single agent turn without needing an inbound chat message.
 By default it goes **through the Gateway**; add `--local` to force the embedded
 runtime on the current machine.
 
@@ -23,7 +23,7 @@ runtime on the current machine.
 - Output:
   - default: prints reply text (plus `MEDIA:<url>` lines)
   - `--json`: prints structured payload + metadata
-- Optional delivery back to a channel with `--deliver` + `--channel` (target formats match `openclaw message --target`).
+- Optional delivery back to a channel with `--deliver` + `--channel` (target formats match `mazelclaw message --target`).
 - Use `--reply-channel`/`--reply-to`/`--reply-account` to override delivery without changing the session.
 
 If the Gateway is unreachable, the CLI **falls back** to the embedded local run.
@@ -31,12 +31,12 @@ If the Gateway is unreachable, the CLI **falls back** to the embedded local run.
 ## Examples
 
 ```bash
-openclaw agent --to +15555550123 --message "status update"
-openclaw agent --agent ops --message "Summarize logs"
-openclaw agent --session-id 1234 --message "Summarize inbox" --thinking medium
-openclaw agent --to +15555550123 --message "Trace logs" --verbose on --json
-openclaw agent --to +15555550123 --message "Summon reply" --deliver
-openclaw agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
+mazelclaw agent --to +15555550123 --message "status update"
+mazelclaw agent --agent ops --message "Summarize logs"
+mazelclaw agent --session-id 1234 --message "Summarize inbox" --thinking medium
+mazelclaw agent --to +15555550123 --message "Trace logs" --verbose on --json
+mazelclaw agent --to +15555550123 --message "Summon reply" --deliver
+mazelclaw agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
 ```
 
 ## Flags

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleExecutable</key>
+    <string>MazelClaw</string>
+    <key>CFBundleIdentifier</key>
+    <string>ai.mazelclaw.mac</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>MazelClaw</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>2026.2.21</string>
+    <key>CFBundleVersion</key>
+    <string>202602210</string>
+    <key>CFBundleIconFile</key>
+    <string>MazelClaw</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>ai.mazelclaw.mac.deeplink</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>mazelclaw</string>
+            </array>
+        </dict>
+    </array>
+    <key>LSMinimumSystemVersion</key>
+    <string>15.0</string>
+    <key>LSUIElement</key>
+    <true/>
+
+    <key>MazelClawBuildTimestamp</key>
+    <string></string>
+    <key>MazelClawGitCommit</key>
+    <string></string>
+
+    <key>NSUserNotificationUsageDescription</key>
+    <string>MazelClaw needs notification permission to show alerts for agent actions.</string>
+    <key>NSScreenCaptureDescription</key>
+    <string>MazelClaw captures the screen when the agent needs screenshots for context.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>MazelClaw can capture photos or short video clips when requested by the agent.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>MazelClaw can share your location when requested by the agent.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>MazelClaw can share your location when requested by the agent.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>MazelClaw can share your location when requested by the agent.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>MazelClaw needs the mic for Voice Wake tests and agent audio capture.</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>MazelClaw uses speech recognition to detect your Voice Wake trigger phrase.</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>MazelClaw needs Automation (AppleScript) permission to drive Terminal and other apps for agent actions.</string>
+
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoadsInWebContent</key>
+        <true/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>100.100.100.100</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
+</dict>
+</plist>

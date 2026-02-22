@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/imessage",
+  "name": "@mazelclaw/imessage",
   "version": "2026.2.22",
   "private": true,
-  "description": "OpenClaw iMessage channel plugin",
+  "description": "MazelClaw iMessage channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "mazelclaw": "workspace:*"
   },
-  "openclaw": {
+  "mazelclaw": {
     "extensions": [
       "./index.ts"
     ]

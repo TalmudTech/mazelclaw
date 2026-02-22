@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { MazelClawConfig } from "../../../config/config.js";
 import type { DiscordGuildEntry } from "../../../config/types.discord.js";
 import type { DmPolicy } from "../../../config/types.js";
 import {
@@ -21,7 +21,7 @@ import { addWildcardAllowFrom, promptAccountId, promptResolvedAllowFrom } from "
 
 const channel = "discord" as const;
 
-function setDiscordDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
+function setDiscordDmPolicy(cfg: MazelClawConfig, dmPolicy: DmPolicy) {
   const existingAllowFrom =
     cfg.channels?.discord?.allowFrom ?? cfg.channels?.discord?.dm?.allowFrom;
   const allowFrom = dmPolicy === "open" ? addWildcardAllowFrom(existingAllowFrom) : undefined;
@@ -56,10 +56,10 @@ async function noteDiscordTokenHelp(prompter: WizardPrompter): Promise<void> {
 }
 
 function patchDiscordConfigForAccount(
-  cfg: OpenClawConfig,
+  cfg: MazelClawConfig,
   accountId: string,
   patch: Record<string, unknown>,
-): OpenClawConfig {
+): MazelClawConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -94,21 +94,21 @@ function patchDiscordConfigForAccount(
 }
 
 function setDiscordGroupPolicy(
-  cfg: OpenClawConfig,
+  cfg: MazelClawConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): OpenClawConfig {
+): MazelClawConfig {
   return patchDiscordConfigForAccount(cfg, accountId, { groupPolicy });
 }
 
 function setDiscordGuildChannelAllowlist(
-  cfg: OpenClawConfig,
+  cfg: MazelClawConfig,
   accountId: string,
   entries: Array<{
     guildKey: string;
     channelKey?: string;
   }>,
-): OpenClawConfig {
+): MazelClawConfig {
   const baseGuilds =
     accountId === DEFAULT_ACCOUNT_ID
       ? (cfg.channels?.discord?.guilds ?? {})
@@ -128,7 +128,7 @@ function setDiscordGuildChannelAllowlist(
   return patchDiscordConfigForAccount(cfg, accountId, { guilds });
 }
 
-function setDiscordAllowFrom(cfg: OpenClawConfig, allowFrom: string[]): OpenClawConfig {
+function setDiscordAllowFrom(cfg: MazelClawConfig, allowFrom: string[]): MazelClawConfig {
   return {
     ...cfg,
     channels: {
@@ -153,10 +153,10 @@ function parseDiscordAllowFromInput(raw: string): string[] {
 }
 
 async function promptDiscordAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: MazelClawConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<MazelClawConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)

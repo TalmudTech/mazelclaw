@@ -1,4 +1,4 @@
-import OpenClawKit
+import MazelClawKit
 import SwiftUI
 
 struct ScreenTab: View {

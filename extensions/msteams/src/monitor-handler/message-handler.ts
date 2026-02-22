@@ -8,7 +8,7 @@ import {
   resolveMentionGating,
   formatAllowlistMatchMeta,
   type HistoryEntry,
-} from "openclaw/plugin-sdk";
+} from "mazelclaw/plugin-sdk";
 import {
   buildMSTeamsAttachmentPlaceholder,
   buildMSTeamsMediaPayload,

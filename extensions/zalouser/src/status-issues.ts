@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "openclaw/plugin-sdk";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "mazelclaw/plugin-sdk";
 
 type ZalouserAccountStatus = {
   accountId?: unknown;
@@ -68,7 +68,7 @@ export function collectZalouserStatusIssues(
           accountId,
           kind: "auth",
           message: "Not authenticated (no zca session).",
-          fix: "Run: openclaw channels login --channel zalouser",
+          fix: "Run: mazelclaw channels login --channel zalouser",
         });
       }
       continue;

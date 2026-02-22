@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { MazelClawConfig } from "../config/config.js";
 import { resolveStorePath, resolveSessionTranscriptsDirForAgent } from "../config/sessions.js";
 import { note } from "../terminal/note.js";
 import { noteStateIntegrity } from "./doctor-state-integrity.js";
@@ -13,17 +13,17 @@ vi.mock("../terminal/note.js", () => ({
 
 type EnvSnapshot = {
   HOME?: string;
-  OPENCLAW_HOME?: string;
-  OPENCLAW_STATE_DIR?: string;
-  OPENCLAW_OAUTH_DIR?: string;
+  MAZELCLAW_HOME?: string;
+  MAZELCLAW_STATE_DIR?: string;
+  MAZELCLAW_OAUTH_DIR?: string;
 };
 
 function captureEnv(): EnvSnapshot {
   return {
     HOME: process.env.HOME,
-    OPENCLAW_HOME: process.env.OPENCLAW_HOME,
-    OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
-    OPENCLAW_OAUTH_DIR: process.env.OPENCLAW_OAUTH_DIR,
+    MAZELCLAW_HOME: process.env.MAZELCLAW_HOME,
+    MAZELCLAW_STATE_DIR: process.env.MAZELCLAW_STATE_DIR,
+    MAZELCLAW_OAUTH_DIR: process.env.MAZELCLAW_OAUTH_DIR,
   };
 }
 
@@ -38,7 +38,7 @@ function restoreEnv(snapshot: EnvSnapshot) {
   }
 }
 
-function setupSessionState(cfg: OpenClawConfig, env: NodeJS.ProcessEnv, homeDir: string) {
+function setupSessionState(cfg: MazelClawConfig, env: NodeJS.ProcessEnv, homeDir: string) {
   const agentId = "main";
   const sessionsDir = resolveSessionTranscriptsDirForAgent(agentId, env, () => homeDir);
   const storePath = resolveStorePath(cfg.session?.store, { agentId });
@@ -52,12 +52,12 @@ describe("doctor state integrity oauth dir checks", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv();
-    tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-integrity-"));
+    tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "mazelclaw-doctor-state-integrity-"));
     process.env.HOME = tempHome;
-    process.env.OPENCLAW_HOME = tempHome;
-    process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".openclaw");
-    delete process.env.OPENCLAW_OAUTH_DIR;
-    fs.mkdirSync(process.env.OPENCLAW_STATE_DIR, { recursive: true, mode: 0o700 });
+    process.env.MAZELCLAW_HOME = tempHome;
+    process.env.MAZELCLAW_STATE_DIR = path.join(tempHome, ".mazelclaw");
+    delete process.env.MAZELCLAW_OAUTH_DIR;
+    fs.mkdirSync(process.env.MAZELCLAW_STATE_DIR, { recursive: true, mode: 0o700 });
     vi.mocked(note).mockReset();
   });
 
@@ -67,7 +67,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("does not prompt for oauth dir when no whatsapp/pairing config is active", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: MazelClawConfig = {};
     setupSessionState(cfg, process.env, tempHome);
     const confirmSkipInNonInteractive = vi.fn(async () => false);
 
@@ -88,7 +88,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("prompts for oauth dir when whatsapp is configured", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: MazelClawConfig = {
       channels: {
         whatsapp: {},
       },
@@ -112,7 +112,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("prompts for oauth dir when a channel dmPolicy is pairing", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: MazelClawConfig = {
       channels: {
         telegram: {
           dmPolicy: "pairing",
