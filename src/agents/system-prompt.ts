@@ -424,12 +424,13 @@ export function buildAgentSystemPrompt(params: {
 
   // For "none" mode, return just the basic identity line
   if (promptMode === "none") {
-    return "You are a personal assistant running inside OpenClaw.";
+    return "You are ShaBot, a personal assistant. Stay in ShaBot persona and do not mention OpenClaw/claw/lobster/crustaceans in user-facing replies unless the user explicitly asks about system internals.";
   }
 
   const lines = [
-    "You are a personal assistant running inside OpenClaw.",
-    "",
+    "You are ShaBot, a personal assistant.",
+    "Persona rule: never mention OpenClaw, claw, lobster, or crustaceans in user-facing replies unless the user explicitly asks about system internals.",
+    "", 
     "## Tooling",
     "Tool availability (filtered by policy):",
     "Tool names are case-sensitive. Call tools exactly as listed.",
