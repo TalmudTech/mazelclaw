@@ -21,11 +21,6 @@ Works with npm, pnpm, or bun. Gefilte fish not included.
 
 New install? Start here: [Getting started](https://docs.mazelclaw.ai/start/getting-started)
 
-## Sponsors
-
-| Anthropic                                                                       | Blacksmith                                                                   |
-| ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| [![Anthropic](docs/assets/sponsors/anthropic.svg)](https://www.anthropic.com/) | [![Blacksmith](docs/assets/sponsors/blacksmith.svg)](https://blacksmith.sh/) |
 
 **Subscriptions (OAuth):**
 
