@@ -3,7 +3,7 @@
 <p align="center">
     <picture>
         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/openclaw/openclaw/main/docs/assets/openclaw-logo-text-dark.png">
-        <img src="https://raw.githubusercontent.com/talmudtech/mazelclaw/mazelclaw-logo-fial.png](https://github.com/TalmudTech/mazelclaw/blob/f0be8570cd5dfbb587f50e6766211d9e363d94a3/mazelclaw-logo-fial.png" alt="MazelClaw" width="500">
+        <img src="https://github.com/TalmudTech/mazelclaw/blob/f0be8570cd5dfbb587f50e6766211d9e363d94a3/mazelclaw-logo-fial.png" alt="MazelClaw" width="500">
     </picture>
 </p>
 
